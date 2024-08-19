@@ -53,12 +53,8 @@
 </template>
 
 <script>
+// import db from '@/firebase.js';
 
-// import { defineComponent } from 'vue';
-
-// export default defineComponent({
-
-// });
 export default {
     data() {
         return {
@@ -70,12 +66,37 @@ export default {
             ]
         }
     },
+    // mounted() {
+    //     this.fetchProjects();
+    // },
     methods: {
+        // fetchProjects() {
+        //     const projectsRef = db.ref('projects'); // Reference to the 'projects' node
+
+        //     // Set up a listener for changes in the 'projects' node
+        //     projectsRef.on('value', (snapshot) => {
+        //         const data = snapshot.val();
+        //         if (data) {
+        //             this.projects = Object.keys(data).map(key => ({
+        //                 id: key,
+        //                 ...data[key]
+        //             }));
+        //         } else {
+        //             this.projects = [];
+        //         }
+        //     }, (error) => {
+        //         console.error('Error fetching data:', error);
+        //     });
+        // },
         sortBy(prop) {
             this.projects.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
         }
     },
-
+    // beforeUnmount() {
+    //     // Remove the listener when the component is destroyed
+    //     const projectsRef = db.ref('projects');
+    //     projectsRef.off();
+    // }
 }
 </script>
 <style scoped>

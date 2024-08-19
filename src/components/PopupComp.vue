@@ -5,57 +5,81 @@
         </v-btn>
 
         <v-dialog v-model="dialog" width="600px">
-            <v-card max-width="700px" title="Add a New Project">
+            <v-card  title="Add a New Project">
                 <v-card-text>
                     <v-form class="px-3" ref="form">
-                        <v-text-field prepend-icon="mdi-folder-outline" label="Title" v-model="title" :rules="inputrule"></v-text-field>
-                        <v-textarea prepend-icon="mdi-pencil-outline" label="information"
-                            v-model="information" :rules="inputrule"></v-textarea>
+                        <v-text-field prepend-icon="mdi-folder-outline" label="Title" v-model="title"
+                            :rules="inputRules.title"></v-text-field>
+                        <v-textarea prepend-icon="mdi-pencil-outline" label="information" v-model="information"
+                            :rules="inputRules.information"></v-textarea>
 
-                        <!-- <v-row class="d-flex justify-center">
-                            <v-menu ref="menu" v-model="menu" :close-on-content-click="false" :nudge-right="40"
-                                transition="scale-transition" offset-y min-width="290px">
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="due" label="Select Date" prepend-icon="mdi-calendar" readonly
-                                        v-bind="attrs" v-on="on"></v-text-field>
-                                </template>
-<v-date-picker v-model="due" no-title scrollable>
-    <v-spacer></v-spacer>
-    <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-    <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-</v-date-picker>
-</v-menu>
-</v-row> -->
-
-                        <v-btn color="#E0FFFF" class="mx-0 mt-3" @click="submit">Add Project</v-btn>
+                        <v-btn color="#E0FFFF" class="mx-0 mt-3" @click="submit">Add Project
+                            <LoaderComp :loading="loading" />
+                        </v-btn>
                     </v-form>
                 </v-card-text>
             </v-card>
         </v-dialog>
+    
     </div>
 </template>
 <script>
+import db from '@/firebase.js';
+import { collection, addDoc } from 'firebase/firestore';
+import LoaderComp from '@/components/LoaderComp.vue';
+
 export default {
+    components:{LoaderComp,},
     data() {
         return {
             dialog: false,
             title: '',
             information: '',
-            // due: null,
-            // menu: true
-            inputrule:[
-                v => v.lenght >= 4 || 'Minimum lenght is 4 charachers'
-            ]
+            loading: false,
+            inputRules: {
+                title: [
+                    v => !!v || 'Title is required',
+                    v => v.length >= 4 || 'Title must be at least 4 characters long'
+                ],
+                information: [
+                    v => !!v || 'Information is required',
+                    v => v.length >= 10 || 'Information must be at least 10 characters long'
+                ]
+            }
         }
     },
     methods: {
-        submit() {
-            if(this.$refs.form.validate()){
-                console.log(this.title, this.information);
+        async submit() {
+            const form = this.$refs.form;
+            if (form.validate()) {
+                this.loading = true;
+                const project = {
+                    title: this.title,
+                    content: this.information,
+                    person: 'Faizan Shaikh',
+                    status: 'ongoing'
+                };
+
+                try {
+                    // Add the project data to Firestore
+                    await addDoc(collection(db, 'projects'), project);
+                    console.log('Project added:', project);
+
+                    this.loading = false; 
+                    // Reset the form after successful submission
+                    form.reset();
+                    this.dialog = false; // Close the dialog
+                    this.$emit('ProjectAdded')
+
+                } catch (error) {
+                    console.error('Error adding project:', error);
+                }
+                 finally {
+                    this.loading = false; 
+                }
+
             }
-            
         }
     }
-
 }
 </script>
