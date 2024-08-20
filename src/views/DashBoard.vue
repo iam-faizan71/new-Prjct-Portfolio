@@ -3,8 +3,10 @@
         <h1 class="text-grey text-subtitle-1">Dashboard</h1>
     </div>
     <v-container class="my-5">
+<!-- Tooltip -->
         <v-row class="mb-3">
             <v-col cols="12">
+                <!-- tooltip on button  -->
                 <v-tooltip location="top">
                     <template v-slot:activator="{ props }">
                         <v-btn variant="text" small color="grey" prepend-icon="mdi-folder"
@@ -14,7 +16,7 @@
                     </template>
                     <span>Sort Projects by Project Name </span>
                 </v-tooltip>
-
+                <!-- tooltip on button -->
                 <v-tooltip location="top">
                     <template v-slot:activator="{ props }">
                         <v-btn variant="text" small color="grey" prepend-icon="mdi-account"
@@ -26,7 +28,10 @@
                 </v-tooltip>
             </v-col>
         </v-row>
+
+ <!-- Card  v-for-loop -->
         <v-card flat class="pa-3" v-for="(project, index) in projects" :key="index">
+            <!-- Row Col  -->
             <v-row wrap :class="`pa-3 project ${project.status}`">
                 <v-col cols="12" md="6" sm="12" xs="12">
                     <div class="text-caption text-gery">Project title</div>

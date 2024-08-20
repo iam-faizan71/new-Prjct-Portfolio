@@ -9,7 +9,7 @@
     <!--Toolbar -->
     <v-toolbar density="comfortable" :elevation="4" app>
       <!-- Side menu icon -->
-      <v-app-bar-nav-icon class="text-grey" @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon class="text-grey d-md-none d-flex " @click="drawer = !drawer"></v-app-bar-nav-icon>
       <!-- Navbar logo -->
       <v-toolbar-title class="text-uppercase text-grey">
         <span class="font-weight-light">Decode</span>
@@ -39,7 +39,7 @@
           </v-icon>
         </template>
         <!-- After click Icon -->
-        <v-card width="300" flat color="purple-accent-4">
+        <v-card width="auto" flat color="purple-accent-4" @click.stop>
           <v-card-text>
             <div class="text-center">
               <v-avatar color="white">
@@ -50,16 +50,9 @@
                 Web Developer
               </p>
               <v-divider class="my-3"></v-divider>
-              <div class="mt-3 mb-2">
+              <div class="d-none d-md-flex justify-center mt-3 mb-2">
                 <PopupComp @ProjectAdded="snackbar = true" />
               </div>
-              <!-- <v-btn variant="text" rounded @click="EditUser">
-                Edit Account
-              </v-btn>
-              <v-divider class="my-3"></v-divider>
-              <v-btn variant="text" rounded @click="logout">
-                Log Out
-              </v-btn> -->
             </div>
           </v-card-text>
         </v-card>
@@ -70,9 +63,9 @@
     <v-navigation-drawer app temporary v-model="drawer" color="purple-accent-4">
       <div class="d-flex flex-column align-center mt-5">
         <v-avatar size="60">
-          <v-img src="/person1.png" alt="Faizan Shaikh"></v-img>
+          <v-img src="/person1.png" alt="User Image"></v-img>
         </v-avatar>
-        <p class="text-white text-subtitle-1 mt-1">Faizan Shaikh</p>
+        <p class="text-white text-subtitle-1 mt-1">Faizan</p>
       </div>
       <div class="mt-3 mb-2">
         <PopupComp @ProjectAdded="snackbar = true" />
@@ -90,7 +83,9 @@ import PopupComp from './PopupComp.vue';
 
 export default {
   name: 'NavBarComponents',
-  components: { PopupComp },
+  components: {
+    PopupComp,
+  },
 
   data() {
     return {

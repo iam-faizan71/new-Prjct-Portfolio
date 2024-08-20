@@ -21,7 +21,6 @@
                         <v-btn variant="text" color="grey" prepend-icon="mdi-message">Massage</v-btn>
                     </v-card-action>
                 </v-card>
-
             </v-col>
         </v-row>
 
@@ -29,11 +28,6 @@
 </template>
 
 <script>
-// import { defineComponent } from 'vue';
-
-// export default defineComponent({
-
-// });
 export default {
     data() {
         return {
@@ -42,7 +36,6 @@ export default {
                 { name: 'Jack Davidson', role: 'Graphic designer', avatar: 'person2.png' },
                 { name: 'Thomas Gill', role: 'Backend Developer', avatar: 'person4.png' },
                 { name: 'Jason	Lee', role: 'Content Writer', avatar: 'person5.png' },
-                // { name: 'Yoshi', role: 'Sales guru', avatar:'person4.png' }
 
             ]
         }
