@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import DashBoard from '../views/DashBoard.vue'
-// import MyProjects from '../views/MyProjects.vue'
-// import MyTeam from '../views/MyTeam.vue'
-const DashBoard = import('../views/DashBoard.vue');
-const MyProjects = import('../views/MyProjects.vue');
-const MyTeam = import('../views/MyTeam.vue');
+import DashBoard from '../views/DashBoard.vue'
+import MyProjects from '../views/MyProjects.vue'
+import MyTeam from '../views/MyTeam.vue'
+
+
+// const DashBoard = import('../views/DashBoard.vue');
+// const MyProjects = import('../views/MyProjects.vue');
+// const MyTeam = import('../views/MyTeam.vue');
 
 const routes = [
   {
